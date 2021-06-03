@@ -1,6 +1,6 @@
 # Activation-Sharing-with-Asymmetric-Paths
 
-This repository is the official implementation of [My Paper Title](https://arxiv.org/abs/2030.12345). 
+This repository is the official implementation of [Activation-Sharing-with-Asymmetirc-Paths]. 
 
 >📋  Optional: include a graphic explaining your approach/main result, bibtex entry, link to demos, blog posts and tutorials
 
@@ -19,7 +19,7 @@ pip install -r requirements.txt
 To train the model(s) in the paper, run this command:
 
 ```train
-python train.py --input-data <path_to_data> --alpha 10 --beta 20
+python train.py --dataset <type of dataset> --model <type of model> --feedback <type of feedback> --augmentation
 ```
 
 >📋  Describe how to train the models, with example commands on how to train the models in your paper, including the full training procedure and appropriate hyperparameters.
@@ -29,7 +29,7 @@ python train.py --input-data <path_to_data> --alpha 10 --beta 20
 To evaluate my model on ImageNet, run:
 
 ```eval
-python eval.py --model-file mymodel.pth --benchmark imagenet
+python train.py --dataset <type of dataset> --model <type of model> --feedback <type of feedback> --augmentation
 ```
 
 >📋  Describe how to evaluate the trained models on benchmarks reported in the paper, give commands that produce the results (section below).
@@ -38,7 +38,7 @@ python eval.py --model-file mymodel.pth --benchmark imagenet
 
 You can download pretrained models here:
 
-- [My awesome model](https://drive.google.com/mymodel.pth) trained on ImageNet using parameters x,y,z. 
+- [My awesome model](https://drive.google.com/mymodel.pth) trained on MNSIT, SVHN, CIFAR-10, CIFAR-100. 
 
 >📋  Give a link to where/how the pretrained models can be downloaded and how they were trained (if applicable).  Alternatively you can have an additional column in your results table with a link to the models.
 
