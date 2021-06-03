@@ -19,13 +19,17 @@ pip install -r requirements.txt
 
 See help (--h flag) for before executing the code.
 
+**train.py** is provided to train the model.
+  
 ```train
 python train.py --dataset <type of dataset> --model <type of model> --feedback <type of feedback> --augmentation
 ```
 
 ## Evaluation
 
-To evaluate my model on ImageNet, run:
+See help (--h flag) for before executing the code.
+
+**eval.py** is provided to evaluate the model.
 
 ```eval
 python train.py --dataset <type of dataset> --model <type of model> --feedback <type of feedback> --augmentation
