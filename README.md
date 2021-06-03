@@ -2,8 +2,8 @@
 
 This repository is the official implementation of Activation-Sharing-with-Asymmetirc-Paths. 
 The proposed biologically plausible algorithm supports training deep convolutional networks without the weight transport problem and bidirectional connections
-![ASAP](./Fig/ASAP.png){: width="50" height="50"}
 
+<img src="./Fig/ASAP.png"  width="50" height="50">
 
 ## Requirements
 
