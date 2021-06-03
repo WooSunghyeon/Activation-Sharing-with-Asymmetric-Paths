@@ -17,13 +17,11 @@ pip install -r requirements.txt
 
 ## Training
 
-To train the model(s) in the paper, run this command:
+See help (--h flag) for before executing the code.
 
 ```train
 python train.py --dataset <type of dataset> --model <type of model> --feedback <type of feedback> --augmentation
 ```
-
->📋  Describe how to train the models, with example commands on how to train the models in your paper, including the full training procedure and appropriate hyperparameters.
 
 ## Evaluation
 
@@ -32,8 +30,6 @@ To evaluate my model on ImageNet, run:
 ```eval
 python train.py --dataset <type of dataset> --model <type of model> --feedback <type of feedback> --augmentation
 ```
-
->📋  Describe how to evaluate the trained models on benchmarks reported in the paper, give commands that produce the results (section below).
 
 ## Pre-trained Models
 
