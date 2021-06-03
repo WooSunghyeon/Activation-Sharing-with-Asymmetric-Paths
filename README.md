@@ -48,7 +48,7 @@ You can download pretrained models here:
 Our model achieves the following performance on :
 
 <p align="center"><img src="./Fig/table of result.PNG"  width="1500" height="500">
-<p align="center"><img src="./Fig/graph of result.PNG"  width="1500" height="500">
+<p align="center"><img src="./Fig/graph of result.PNG"  width="1000" height="500">
 
 ## Contributing
 
