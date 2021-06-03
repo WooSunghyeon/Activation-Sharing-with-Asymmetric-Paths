@@ -45,7 +45,7 @@ You can download pretrained models here:
 
 ## Results
 
-The test accuracy of experiment
+The test accuracy of experiment is as follow;
   
 <p align="center"><img src="./Fig/table of result.PNG"  width="750" height="325">
   
