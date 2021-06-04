@@ -41,7 +41,6 @@ See help (--h flag) for available options before executing the code.
 ```eval
 python eval.py --dataset <type of dataset> --model <type of model> --feedback <type of feedback> --model_path <path/to/model>
 ```
-For evaluation, the pretrained model's path should be `.\checkpoint\<file_name>.pt`.
 
 ## Pre-trained Models
 
