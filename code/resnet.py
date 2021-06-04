@@ -10,7 +10,6 @@ class resnet(nn.Module):
         super(resnet, self).__init__()
         self.feedback = feedback
         self.not_shortcut = False # Decide whether we use shorcut or not
-        self.num_classes = num_classes
         block = BasicBlock
         
         # Choose dimmension of architecture by dataset
@@ -26,6 +25,7 @@ class resnet(nn.Module):
             width = 32
             dim = 3
             num_classes = 100
+	self.num_classes = num_classes
         
         # Decide number of layer for resnet
         if model == 'resnet34':
