@@ -9,10 +9,10 @@ class resnet(nn.Module):
     def __init__(self, dataset='cifar10', feedback='bp', model = 'resenet18', wt = False):
         super(resnet, self).__init__()
         self.feedback = feedback
-        self.not_shortcut = False # Decide whether we use shorcut or not
+        self.not_shortcut = False # Decide whether we use shortcut or not
         block = BasicBlock
         
-        # Choose dimmension of architecture by dataset
+        # Choose dimension of architecture by dataset
         if dataset == 'mnist':
             width = 28
             dim = 1
@@ -116,7 +116,7 @@ class resnet_asap(nn.Module):
         self.wt = wt
         block = ASBasicBlock
         
-        # Choose dimmension of architecture by dataset
+        # Choose dimension of architecture by dataset
         if dataset == 'mnist':
             width = 28
             dim = 1
@@ -300,12 +300,12 @@ class ASBasicBlock(nn.Module):
         In first layer of resnet block, it is updated with shared activation 
         determined in the previous block.
         
-        and then we determined new shared activation in present blcok.
+        and then we determined new shared activation in present block.
         
         this shared activation is used for second layer of present resnet block and
         first layer of next resnet block.
         
-        However, when k=4, we do not deternmine new shared activation 
+        However, when k=4, we do not determine new shared activation 
         and just use previous value. And then, next block will determine new shared activation.
         By determining shared activation by skipping resnet blocks one by one, we implemented k=4.
         '''
@@ -313,7 +313,7 @@ class ASBasicBlock(nn.Module):
         shared_present = x.clone()
         if self.use_previous:
             shared_present = shared_previous 
-        out = F.relu(self.bn1(self.conv1(x, shared_previous))) # use previous shared activaion
+        out = F.relu(self.bn1(self.conv1(x, shared_previous))) # use previous shared activation
         out = self.bn2(self.conv2(out, shared_present)) # use present shared activation
         
         if not(self.not_shortcut):
