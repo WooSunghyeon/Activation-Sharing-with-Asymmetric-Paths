@@ -46,9 +46,8 @@ python eval.py --dataset <type of dataset> --model <type of model> --feedback <t
 
 You can download pretrained models here:
 
-- [My awesome model](https://drive.google.com/mymodel.pth) trained on MNSIT, SVHN, CIFAR-10, CIFAR-100. 
-
->📋  Give a link to where/how the pretrained models can be downloaded and how they were trained (if applicable).  Alternatively you can have an additional column in your results table with a link to the models.
+- [All pretraind model](https://drive.google.com/drive/folders/1EY_Jm5M5XqpE4LLp9OSlzYALUnZvRKMt?usp=sharing) trained on MNSIT, SVHN, CIFAR-10, CIFAR-100. 
+  
 
 ## Results
 
