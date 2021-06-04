@@ -12,7 +12,8 @@ This repository is the official implementation of Activation-Sharing-with-Asymme
 To install requirements:
 
 ```setup
-pip install -r requirements.txt
+conda env create -f environment_asap.yaml
+conda activate asap
 ```
 
 ## Training
