@@ -161,7 +161,7 @@ class resnet_asap(nn.Module):
                                         Linear_FA(512, num_classes),
                                         nn.BatchNorm1d(num_classes)
 	)
-        self.block = [layer for layer in self.modules() if isinstance(layer, Conv2d_FA_LW)]
+        self.block = [layer for layer in self.modules() if isinstance(layer, Conv2d_FA_ASAP)]
         
         
     def _make_layer(self, block, planes, num_blocks, stride):
