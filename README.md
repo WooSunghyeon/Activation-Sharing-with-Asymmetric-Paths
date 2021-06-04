@@ -51,7 +51,7 @@ You can download pretrained models here:
 
 ## Results
 
-The evaluation results of our code is as follows :
+The evaluation results of our code is as follows:
   
 <p align="center"><img src="./Fig/table of result.PNG"  width="750" height="325">
   
