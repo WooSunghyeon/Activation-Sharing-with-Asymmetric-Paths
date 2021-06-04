@@ -3,7 +3,7 @@
 This repository is the official implementation of Activation-Sharing-with-Asymmetirc-Paths. 
 
 + The proposed biologically plausible algorithm supports training deep convolutional networks without the weight transport problem and bidirectional connections
-+ The proposed biologically plausible algorithm significantly cand reduce memory access overhead when implemented in hardware.
++ The proposed biologically plausible algorithm can significantly reduce memory access overhead when implemented in hardware.
 
 <p align="center"><img src="./Fig/ASAP.png"  width="500" height="500">
 
@@ -18,17 +18,23 @@ conda activate asap
 
 ## Training
 
-See help (--h flag) for before executing the code.
+See help (--h flag) for available options before executing the code.
 
 `train.py` is provided to train the model.
   
 ```train
-python train.py --dataset <type of dataset> --model <type of model> --feedback <type of feedback> --augmentation
+python train.py --dataset <type of dataset> --model <type of model> --feedback <type of feedback> 
+```
+
+For instance, to train resnet-18 model on cifar-100 dataset with our asap algorithm, run:
+
+```train_res18
+python train.py --dataset cifar-100 --model resnet-18 --feedback asap
 ```
 
 ## Evaluation
 
-See help (--h flag) for before executing the code.
+See help (--h flag) for available options before executing the code.
 
 `eval.py` is provided to evaluate the model.
 
