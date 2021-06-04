@@ -94,7 +94,7 @@ class Conv2d_FA(nn.Conv2d):
 """"
 Direct Feedback alignment
 
-Feedback_Reciever module receives top error and transforms the top error through random fixed weights.
+Feedback_Receiver module receives top error and transforms the top error through random fixed weights.
 First, it makes dummy data and sends it to Top_Gradient module 
 which distributes top error in forward prop.
 And then, top error from Top_Gradient module is transformed by weight_fb in backward prop 
@@ -103,11 +103,11 @@ Top_Gradient module sends top error to lower layers which is made by loss functi
 First, it receives dummy data from layers that will receive errors in forward prop.
 And then, top error is sent to the layers that gave the dummy data in backward prop.
 
-So, the Feedback_Reciever module is located behind the layer that wants to receive the error, 
+So, the Feedback_Receiver module is located behind the layer that wants to receive the error, 
 and the Top_Gradient module is located at the end of the architecture. 
-The dummy created in Feedback_Reciever must be accepted in Top_Gradient.
+The dummy created in Feedback_Receiver must be accepted in Top_Gradient.
 """
-class feedback_reciever(torch.autograd.Function):
+class feedback_receiver(torch.autograd.Function):
     @staticmethod
     def forward(ctx, input, weight_fb):
         output = input.clone()
@@ -126,9 +126,9 @@ class feedback_reciever(torch.autograd.Function):
         return grad_input, grad_weight_fb
 
 
-class Feedback_Reciever(nn.Module):
+class Feedback_Receiver(nn.Module):
     def __init__(self, connect_features):
-        super(Feedback_Reciever, self).__init__()
+        super(Feedback_Receiver, self).__init__()
         self.connect_features = connect_features
         self.weight_fb = None
     
@@ -136,7 +136,7 @@ class Feedback_Reciever(nn.Module):
         if self.weight_fb is None:
             self.weight_fb = nn.Parameter(torch.Tensor(self.connect_features, *input.size()[1:]).view(self.connect_features, -1)).to(input.device)
             nn.init.normal_(self.weight_fb, std = math.sqrt(1./self.connect_features))
-        return feedback_reciever.apply(input, self.weight_fb)
+        return feedback_receiver.apply(input, self.weight_fb)
    
 class top_gradient(torch.autograd.Function):
     @staticmethod
@@ -163,8 +163,8 @@ class Top_Gradient(nn.Module):
 """"
 Activation Sharing with Asymmetric Paths
 
-Conv2d_FA_LW can do ASAP by learning weight with shared activation.
-First, Inputs of Conv2d_FA_LW are input and shared.
+Conv2d_FA_ASAP can do ASAP by learning weight with shared activation.
+First, Inputs of Conv2d_FA_ASAP are input and shared.
 The shared is determined by the activation of previous layers outside the module.
 
 And then, like FA, the grad_input is made by weight_fa, not weight in backward prop.
@@ -175,7 +175,7 @@ We can use wt option. When wt = True, the grad_input is made by weight and weigh
 In other words, this module only does Activation Sharing, not Activation Sharing with Asymmetric Path.
 """        
     
-class conv2d_fa_lw(torch.autograd.Function):
+class conv2d_fa_asap(torch.autograd.Function):
     @staticmethod
     def forward(ctx, input, shared, weight, weight_fa, bias, stride=1, padding=0, groups=1, wt = False):
         
@@ -229,15 +229,15 @@ class conv2d_fa_lw(torch.autograd.Function):
         
         return grad_input, None, grad_weight, grad_weight_fa, grad_bias, None, None, None, None
 
-class Conv2d_FA_LW(nn.Conv2d):
+class Conv2d_FA_ASAP(nn.Conv2d):
     def __init__(self, in_channels, out_channels, kernel_size, stride=1, padding=0, groups=1, bias=True, wt = False):
-        super(Conv2d_FA_LW, self).__init__(in_channels, out_channels, kernel_size, stride=stride, padding=padding, groups=groups)
+        super(Conv2d_FA_ASAP, self).__init__(in_channels, out_channels, kernel_size, stride=stride, padding=padding, groups=groups)
         self.weight_fa = nn.Parameter(torch.Tensor(self.weight.size()), requires_grad=True)
         self.wt = wt # by using wt, Activation Saring with weight transport is possible.
         nn.init.kaiming_uniform_(self.weight, a=math.sqrt(5))
         nn.init.kaiming_uniform_(self.weight_fa, a=math.sqrt(5))      
         
     def forward(self, input, shared):
-        return conv2d_fa_lw.apply(input, shared, self.weight, self.weight_fa, self.bias, self.stride, self.padding, self.groups, self.wt) 
+        return conv2d_fa_asap.apply(input, shared, self.weight, self.weight_fa, self.bias, self.stride, self.padding, self.groups, self.wt) 
 
 #%%
