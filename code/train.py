@@ -141,10 +141,7 @@ def main():
                                'model' : args.model,
                                'wt' : args.wt}
 
-    save_file_name = args.dataset + '_' + args.model + '_' + args.feedback + '_' + args.optimizer + '_wt : ' + str(args.wt)
-    
-    if args.aug:
-        save_file_name = args.dataset + '_' + args.model + '_' + args.feedback + '_' + 'augmentation' + '_wt : ' + str(args.wt)
+    save_file_name = args.dataset + '_' + args.model + '_' + args.feedback
     print(learning_kwargs)
     
     if args.model == 'convnet':
