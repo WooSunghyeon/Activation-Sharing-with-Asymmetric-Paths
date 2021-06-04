@@ -34,6 +34,7 @@ See help (--h flag) for before executing the code.
 ```eval
 python train.py --dataset <type of dataset> --model <type of model> --feedback <type of feedback> --augmentation
 ```
+For evaluation, the pretrained model's path should be `.\checkpoint\<file_name>.pt`.
 
 ## Pre-trained Models
 
