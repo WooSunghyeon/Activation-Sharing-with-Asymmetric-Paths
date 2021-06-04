@@ -26,10 +26,10 @@ See help (--h flag) for available options before executing the code.
 python train.py --dataset <type of dataset> --model <type of model> --feedback <type of feedback> 
 ```
 
-For instance, to train resnet-18 model on cifar-100 dataset with our asap algorithm, run:
+For instance, to train resnet18 model on cifar100 dataset with our asap algorithm, run:
 
 ```train_res18
-python train.py --dataset cifar-100 --model resnet-18 --feedback asap
+python train.py --dataset cifar100 --model resnet18 --feedback asap
 ```
 
 ## Evaluation
@@ -39,7 +39,7 @@ See help (--h flag) for available options before executing the code.
 `eval.py` is provided to evaluate the model.
 
 ```eval
-python train.py --dataset <type of dataset> --model <type of model> --feedback <type of feedback> --augmentation
+python eval.py --dataset <type of dataset> --model <type of model> --feedback <type of feedback> --model_path <path/to/model>
 ```
 For evaluation, the pretrained model's path should be `.\checkpoint\<file_name>.pt`.
 
@@ -53,7 +53,7 @@ You can download pretrained models here:
 
 ## Results
 
-The test accuracy of experiment is as follow;
+The evaluation results of our code is as follows;
   
 <p align="center"><img src="./Fig/table of result.PNG"  width="750" height="325">
   

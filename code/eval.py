@@ -31,9 +31,11 @@ parser.add_argument('--aug', action = 'store_true', default = False,
                     help = 'load pretrained model with augmentation(default : False)')
 parser.add_argument('--wt', action = 'store_true', default = False
                     , help = 'activation sharing with transposed weight (default : False)')
+parser.add_argument('--model_path', type=str, help='The path to the saved model file')
 parser.add_argument('--optimizer', type=str, choices = ['sgd', 'adam'], default = 'sgd'
                     , help = 'choose optimizer (default : sgd)')
 parser.add_argument('--device', type= int, default = 0, help='device_num')
+
 
 def main():
     args = parser.parse_args()
@@ -90,10 +92,10 @@ def main():
                                'model' : args.model,
                                'wt' : args.wt}
 
-    load_file_name = args.dataset + '_' + args.model + '_' + args.feedback + '_' + args.optimizer + '_wt : ' + str(args.wt)
-    
-    if args.aug:
-        load_file_name = args.dataset + '_' + args.model + '_' + args.feedback + '_' + 'augmentation' + '_wt : ' + str(args.wt)
+    #load_file_name = args.dataset + '_' + args.model + '_' + args.feedback + '_' + args.optimizer + '_wt : ' + str(args.wt)
+    #
+    #if args.aug:
+    #    load_file_name = args.dataset + '_' + args.model + '_' + args.feedback + '_' + 'augmentation' + '_wt : ' + str(args.wt)
     print(learning_kwargs)
     
     if args.model == 'convnet':
@@ -107,7 +109,8 @@ def main():
     net = net.to(device)
     print(net)
     
-    PATH = './checkpoint/' + load_file_name + '.pth'
+    #PATH = './checkpoint/' + load_file_name + '.pth'
+    PATH = args.model_path
     checkpoint = torch.load(PATH)
     net.load_state_dict(checkpoint['net'], strict = False)
     
