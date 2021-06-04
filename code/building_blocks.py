@@ -94,7 +94,7 @@ class Conv2d_FA(nn.Conv2d):
 """"
 Direct Feedback alignment
 
-Feedback_Receiver module receives top error and transforms the top error through random fixed weights.
+Feedback_Reciever module receives top error and transforms the top error through random fixed weights.
 First, it makes dummy data and sends it to Top_Gradient module 
 which distributes top error in forward prop.
 And then, top error from Top_Gradient module is transformed by weight_fb in backward prop 
@@ -103,11 +103,11 @@ Top_Gradient module sends top error to lower layers which is made by loss functi
 First, it receives dummy data from layers that will receive errors in forward prop.
 And then, top error is sent to the layers that gave the dummy data in backward prop.
 
-So, the Feedback_Receiver module is located behind the layer that wants to receive the error, 
+So, the Feedback_Reciever module is located behind the layer that wants to receive the error, 
 and the Top_Gradient module is located at the end of the architecture. 
-The dummy created in Feedback_Receiver must be accepted in Top_Gradient.
+The dummy created in Feedback_Reciever must be accepted in Top_Gradient.
 """
-class feedback_receiver(torch.autograd.Function):
+class feedback_reciever(torch.autograd.Function):
     @staticmethod
     def forward(ctx, input, weight_fb):
         output = input.clone()
@@ -126,9 +126,9 @@ class feedback_receiver(torch.autograd.Function):
         return grad_input, grad_weight_fb
 
 
-class Feedback_Receiver(nn.Module):
+class Feedback_Reciever(nn.Module):
     def __init__(self, connect_features):
-        super(Feedback_Receiver, self).__init__()
+        super(Feedback_Reciever, self).__init__()
         self.connect_features = connect_features
         self.weight_fb = None
     
@@ -136,7 +136,7 @@ class Feedback_Receiver(nn.Module):
         if self.weight_fb is None:
             self.weight_fb = nn.Parameter(torch.Tensor(self.connect_features, *input.size()[1:]).view(self.connect_features, -1)).to(input.device)
             nn.init.normal_(self.weight_fb, std = math.sqrt(1./self.connect_features))
-        return feedback_receiver.apply(input, self.weight_fb)
+        return feedback_reciever.apply(input, self.weight_fb)
    
 class top_gradient(torch.autograd.Function):
     @staticmethod
