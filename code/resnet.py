@@ -25,7 +25,7 @@ class resnet(nn.Module):
             width = 32
             dim = 3
             num_classes = 100
-	self.num_classes = num_classes
+        self.num_classes = num_classes
         
         # Decide number of layer for resnet
         if model == 'resnet34':
