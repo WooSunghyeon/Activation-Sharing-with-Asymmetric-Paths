@@ -57,6 +57,6 @@ The evaluation results of our code is as follows;
   
 <p align="center"><img src="./Fig/graph of result.PNG"  width="750" height="300">
 
-## Contributing
+## Lisense
 
->📋  Pick a licence and describe how to contribute to your code repository. 
+> All content in this repository is licensed under the MIT license. 
