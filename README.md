@@ -46,7 +46,7 @@ python eval.py --dataset <type of dataset> --model <type of model> --feedback <t
 
 You can download pretrained models here:
 
-- [All pretrained models](https://drive.google.com/drive/folders/1FHxrt2tpNZURv8mMXFyO-q7lntAq-OX1?usp=sharing) trained on MNSIT, SVHN, CIFAR-10, CIFAR-100. 
+- [All pretrained models](https://drive.google.com/drive/folders/1FHxrt2tpNZURv8mMXFyO-q7lntAq-OX1?usp=sharing) trained on MNSIT, SVHN, CIFAR-10, and CIFAR-100. 
   
 
 ## Results
