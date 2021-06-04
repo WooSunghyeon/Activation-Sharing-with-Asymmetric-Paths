@@ -11,11 +11,11 @@ cudnn_convolution = load(name="doing_convolution_layer_", sources=["cudnn_conv.c
 
 #%%
 """
-Feedback Alingment
+Feedback Alignment
 
 Instead of using transposed weight of forward path,
 we use weight_fa as random fixed weight for making grad_input.
-The weigt_fa is fixed because grad_weight_fa = 0
+The weight_fa is fixed because grad_weight_fa = 0
 """
 
 class linear_fa(torch.autograd.Function):
@@ -94,10 +94,10 @@ class Conv2d_FA(nn.Conv2d):
 """"
 Direct Feedback alignment
 
-Feedback_Reciever module recieves top error and transforms the top error through random fixed weights.
+Feedback_Receiver module receives top error and transforms the top error through random fixed weights.
 First, it makes dummy data and sends it to Top_Gradient module 
 which distributes top error in forward prop.
-And then, top error from Top_Gradient module is transformed by wegiht_fb in backward prop 
+And then, top error from Top_Gradient module is transformed by weight_fb in backward prop 
 
 Top_Gradient module sends top error to lower layers which is made by loss function.
 First, it receives dummy data from layers that will receive errors in forward prop.
@@ -107,7 +107,7 @@ So, the Feedback_Receiver module is located behind the layer that wants to recei
 and the Top_Gradient module is located at the end of the architecture. 
 The dummy created in Feedback_Receiver must be accepted in Top_Gradient.
 """
-class feedback_reciever(torch.autograd.Function):
+class feedback_receiver(torch.autograd.Function):
     @staticmethod
     def forward(ctx, input, weight_fb):
         output = input.clone()
@@ -126,9 +126,9 @@ class feedback_reciever(torch.autograd.Function):
         return grad_input, grad_weight_fb
 
 
-class Feedback_Reciever(nn.Module):
+class Feedback_Receiver(nn.Module):
     def __init__(self, connect_features):
-        super(Feedback_Reciever, self).__init__()
+        super(Feedback_Receiver, self).__init__()
         self.connect_features = connect_features
         self.weight_fb = None
     
@@ -136,7 +136,7 @@ class Feedback_Reciever(nn.Module):
         if self.weight_fb is None:
             self.weight_fb = nn.Parameter(torch.Tensor(self.connect_features, *input.size()[1:]).view(self.connect_features, -1)).to(input.device)
             nn.init.normal_(self.weight_fb, std = math.sqrt(1./self.connect_features))
-        return feedback_reciever.apply(input, self.weight_fb)
+        return feedback_receiver.apply(input, self.weight_fb)
    
 class top_gradient(torch.autograd.Function):
     @staticmethod
@@ -181,8 +181,8 @@ class conv2d_fa_lw(torch.autograd.Function):
         
         output = cudnn_convolution.convolution(input, weight, bias, stride, padding, (1, 1), groups, False, False)
         shared = shared.detach().clone()
-        shared_channel_ratio = int(input.size(1)/shared.size(1)) #for matching shsared activation with actual activation
-        shared_filter_ratio = int(shared.size(2)/input.size(2)) #for matching shsared activation with actual activation
+        shared_channel_ratio = int(input.size(1)/shared.size(1)) #for matching shared activation with actual activation
+        shared_filter_ratio = int(shared.size(2)/input.size(2)) #for matching shared activation with actual activation
         
         ctx.stride = stride
         ctx.padding = padding
@@ -206,7 +206,7 @@ class conv2d_fa_lw(torch.autograd.Function):
         shared_filter_ratio = ctx.shared_filter_ratio
         grad_input = grad_weight = grad_bias  = None
         
-        # Matching shsared activation with actual activation by concatenation and maxpool.
+        # Matching shared activation with actual activation by concatenation and maxpool.
         shared = torch.cat([shared] * shared_channel_ratio, 1)
         shared = F.max_pool2d(shared, shared_filter_ratio)       
         
