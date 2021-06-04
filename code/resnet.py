@@ -231,11 +231,11 @@ class BasicBlock(nn.Module):
             self.conv1 = Conv2d_FA(
                 in_planes, planes, kernel_size=3, stride=stride, padding=1, bias=False)
             self.bn1 = nn.BatchNorm2d(planes)
-            self.feedback1 = Feedback_Reciever(connect_features)
+            self.feedback1 = Feedback_Receiver(connect_features)
             self.conv2 = Conv2d_FA(planes, planes, kernel_size=3,
                                    stride=1, padding=1, bias=False)
             self.bn2 = nn.BatchNorm2d(planes)
-            self.feedback2 = Feedback_Reciever(connect_features)
+            self.feedback2 = Feedback_Receiver(connect_features)
             
             self.shortcut = nn.Sequential()
             if stride != 1 or in_planes != self.expansion*planes:
@@ -279,14 +279,14 @@ class ASBasicBlock(nn.Module):
         super(ASBasicBlock, self).__init__()
         self.not_shortcut = not_shortcut
         
-        self.conv1 = Conv2d_FA_LW(
+        self.conv1 = Conv2d_FA_ASAP(
             in_planes, planes, kernel_size=3, stride=stride, padding=1, bias=False,wt=wt)
         self.bn1 = nn.BatchNorm2d(planes, affine = True)
-        self.conv2 = Conv2d_FA_LW(planes, planes, kernel_size=3,
+        self.conv2 = Conv2d_FA_ASAP(planes, planes, kernel_size=3,
                                stride=1, padding=1, bias=False, wt = wt)
         
         if in_planes != self.expansion*planes:
-            self.short_conv = Conv2d_FA_LW(in_planes, self.expansion*planes, 
+            self.short_conv = Conv2d_FA_ASAP(in_planes, self.expansion*planes, 
                                            kernel_size=1, stride=stride, bias=False, wt =wt)
             self.short_bn = nn.BatchNorm2d(self.expansion*planes, affine = True)
                 
