@@ -76,35 +76,35 @@ class convnet(nn.Module):
                     nn.BatchNorm2d(64),
                     nn.ReLU(),
                     nn.MaxPool2d(2,2, ceil_mode = True))
-            self.feedback1 = Feedback_Reciever(num_classes)
+            self.feedback1 = Feedback_Receiver(num_classes)
             
             self.layer2 = nn.Sequential(
                     Conv2d_FA(64, 128, 5, 1, 2),
                     nn.BatchNorm2d(128),
                     nn.ReLU(),
                     nn.MaxPool2d(2,2, ceil_mode = True))
-            self.feedback2 = Feedback_Reciever(num_classes)
+            self.feedback2 = Feedback_Receiver(num_classes)
             
             self.layer3 = nn.Sequential(
                     Conv2d_FA(128, 256, 5, 1, 2),
                     nn.BatchNorm2d(256),
                     nn.ReLU(),
                     nn.MaxPool2d(2,2, ceil_mode = True))
-            self.feedback3 = Feedback_Reciever(num_classes)
+            self.feedback3 = Feedback_Receiver(num_classes)
             
             self.layer4 = nn.Sequential(nn.Flatten(),
                     Linear_FA(4096,1024),
                     nn.BatchNorm1d(1024),
                     nn.ReLU()
                     )
-            self.feedback4 = Feedback_Reciever(num_classes)
+            self.feedback4 = Feedback_Receiver(num_classes)
             
             self.layer5 = nn.Sequential(nn.Flatten(),
                     Linear_FA(1024,1024),
                     nn.BatchNorm1d(1024),
                     nn.ReLU()
                     )
-            self.feedback5 = Feedback_Reciever(num_classes)
+            self.feedback5 = Feedback_Receiver(num_classes)
             
             self.layer6 = nn.Sequential(nn.Flatten(),
                     Linear_FA(1024,num_classes),
@@ -117,8 +117,8 @@ class convnet(nn.Module):
             self.conv0 = Conv2d_FA(dim,64,5,1,2)
             self.bn0 = nn.BatchNorm2d(64)        
             
-            self.layer1 = LW_Conv_Block(64,128,5,1,2, wt = wt)
-            self.layer2 = LW_Conv_Block(128,256,5,1,2, wt = wt)
+            self.layer1 = ASAP_Conv_Block(64,128,5,1,2, wt = wt)
+            self.layer2 = ASAP_Conv_Block(128,256,5,1,2, wt = wt)
             
             self.classifier = nn.Sequential(
                     nn.Flatten(),
