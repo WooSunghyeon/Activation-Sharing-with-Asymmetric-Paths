@@ -42,12 +42,6 @@ See help (--h flag) for available options before executing the code.
 python eval.py --dataset <type of dataset> --model <type of model> --feedback <type of feedback> --model_path <path/to/model>
 ```
 
-## Pre-trained Models
-
-You can download pretrained models here:
-
-- [All pretrained models](https://drive.google.com/drive/folders/1FHxrt2tpNZURv8mMXFyO-q7lntAq-OX1?usp=sharing) trained on MNSIT, SVHN, CIFAR-10, and CIFAR-100. 
-  
 
 ## Results
 
