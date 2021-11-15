@@ -53,7 +53,7 @@ You can download pretrained models here:
 
 The evaluation results of our code is as follows:
   
-<p align="center"><img src="./Fig/table of result.PNG"  width="750" height="325">
+<p align="center"><img src="./Fig/table of result.png"  width="750" height="325">
   
 <p align="center"><img src="./Fig/graph of result.PNG"  width="750" height="300">
 
