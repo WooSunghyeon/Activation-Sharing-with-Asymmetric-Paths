@@ -5,7 +5,7 @@ This repository is the official implementation of Activation-Sharing-with-Asymme
 + The proposed biologically plausible algorithm supports training deep convolutional networks without the weight transport problem and bidirectional connections.
 + The proposed biologically plausible algorithm can significantly reduce memory access overhead when implemented in hardware.
 
-<p align="center"><img src="./Fig/algorithm.PNG"  width="900" height="500">
+<p align="center"><img src="./Fig/algorithm.PNG"  width="900" height="450">
 
 ## Requirements
 
